@@ -293,8 +293,7 @@
           <span>REPLY ASAP</span>
         </div>
 
-        <!-- mailto form: sends text/plain email to ms.izzyjo@gmail.com -->
-        <form action="https://formspree.io/f/mbddjvyg" method="POST">
+        <form id="b2k-form" action="https://formspree.io/f/mbddjvyg" method="POST">
           <!-- Name & email -->
           <fieldset>
             <legend>Who’s answering?</legend>
@@ -422,10 +421,39 @@
             <button type="submit">Send Response</button>
           </div>
         </form>
+        <div id="already-submitted" style="display:none; margin-top:16px; font-size:13px; color:#a0a4c2;">
+            You’ve already submitted your response from this browser.
+            If you need to change something, contact Izzy directly.
+          </div>
       </div>
     </div>
   </div>
+  <script>
+  (function() {
+    const FORM_KEY = 'b2kPollSubmitted';
+    const form = document.getElementById('b2k-form');
+    const already = document.getElementById('already-submitted');
+
+    if (!form) return;
+
+    // On load: if user already submitted, hide form and show message
+    if (localStorage.getItem(FORM_KEY) === 'true') {
+      form.style.display = 'none';
+      if (already) already.style.display = 'block';
+    }
+
+    // On submit: set the flag in this browser
+    form.addEventListener('submit', function() {
+      try {
+        localStorage.setItem(FORM_KEY, 'true');
+      } catch (e) {
+        // ignore storage errors
+      }
+    });
+  })();
+</script>
 </body>
 </html>
+
 
 
