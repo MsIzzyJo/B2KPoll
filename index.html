@@ -428,7 +428,7 @@
       </div>
     </div>
   </div>
-  <script>
+<script>
   (function() {
     const FORM_KEY = 'b2kPollSubmitted';
     const form = document.getElementById('b2k-form');
@@ -442,18 +442,20 @@
       if (already) already.style.display = 'block';
     }
 
-    // On submit: set the flag in this browser
-    form.addEventListener('submit', function() {
+    // On submit: set the flag and let the form submit
+    form.addEventListener('submit', function(e) {
       try {
         localStorage.setItem(FORM_KEY, 'true');
-      } catch (e) {
+      } catch (err) {
         // ignore storage errors
       }
+      // DO NOT call e.preventDefault(); we still want it to submit to Formspree
     });
   })();
 </script>
 </body>
 </html>
+
 
 
 
